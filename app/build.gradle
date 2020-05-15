@@ -49,7 +49,12 @@ dependencies {
   // LiveData
   implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
 
+  //material desisgn
   implementation 'com.google.android.material:material:1.1.0'
+
+  //dagger2
+  implementation 'com.google.dagger:dagger:2.27'
+  annotationProcessor 'com.google.dagger:dagger-compiler:2.27'
 }
 
 
