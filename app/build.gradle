@@ -12,6 +12,7 @@ android {
     versionName "1.0"
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    buildConfigField("String", "API_KEY", API_KEY)
   }
 
   buildTypes {
@@ -19,6 +20,13 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+
+    debug {}
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 }
 
@@ -34,6 +42,8 @@ dependencies {
   //retrofit
   implementation 'com.squareup.retrofit2:retrofit:2.8.1'
   implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+  implementation 'com.squareup.retrofit2:adapter-rxjava2:2.8.1'
+  implementation 'com.squareup.okhttp3:logging-interceptor:4.6.0'
 
   //glide
   implementation 'com.github.bumptech.glide:glide:4.11.0'
