@@ -6,12 +6,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import com.rizalzaenal.popularmovies.R;
 import com.rizalzaenal.popularmovies.base.BaseActivity;
 import com.rizalzaenal.popularmovies.di.component.ActivityComponent;
 
 public class MainActivity extends BaseActivity<MainViewModel> {
   TextView text;
+  Toolbar toolbar;
 
   @Override protected int activityLayout() {
     return R.layout.activity_main;
@@ -23,8 +25,9 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 
   @Override protected void setupViews(@Nullable Bundle savedInstanceState) {
     text = findViewById(R.id.text);
+    toolbar = findViewById(R.id.toolbar);
 
-
+    setSupportActionBar(toolbar);
   }
 
   @Override protected void setupObservers() {
