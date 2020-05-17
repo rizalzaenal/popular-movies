@@ -3,7 +3,9 @@ package com.rizalzaenal.popularmovies.base;
 import android.os.Bundle;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.rizalzaenal.popularmovies.PopularMoviesApp;
 import com.rizalzaenal.popularmovies.di.component.ActivityComponent;
 import com.rizalzaenal.popularmovies.di.component.DaggerActivityComponent;
@@ -41,4 +43,11 @@ public abstract class BaseActivity<VM extends BaseViewModel> extends AppCompatAc
 
   protected abstract void injectDependencies(ActivityComponent activityComponent);
 
+  protected void showSnackBar(String message){
+    Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
+  }
+
+  protected void showSnackBar(@StringRes int messageId){
+    Snackbar.make(findViewById(android.R.id.content), getString(messageId), Snackbar.LENGTH_SHORT).show();
+  }
 }
