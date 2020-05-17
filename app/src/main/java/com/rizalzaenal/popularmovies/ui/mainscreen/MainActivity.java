@@ -6,8 +6,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import com.rizalzaenal.popularmovies.BuildConfig;
 import com.rizalzaenal.popularmovies.R;
 import com.rizalzaenal.popularmovies.base.BaseActivity;
 import com.rizalzaenal.popularmovies.di.component.ActivityComponent;
@@ -30,17 +28,10 @@ public class MainActivity extends BaseActivity<MainViewModel> {
   }
 
   @Override protected void setupObservers() {
-    viewModel.messageString.observe(this, new Observer<String>() {
-      @Override public void onChanged(String s) {
-
-      }
+    viewModel.movieLiveData.observe(this, movies -> {
+      text.setText(movies.toString());
     });
 
-    viewModel.messageStringId.observe(this, new Observer<Integer>() {
-      @Override public void onChanged(Integer integer) {
-
-      }
-    });
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
