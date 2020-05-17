@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import com.google.android.material.snackbar.Snackbar;
 import com.rizalzaenal.popularmovies.PopularMoviesApp;
 import com.rizalzaenal.popularmovies.di.component.ActivityComponent;
@@ -39,7 +40,19 @@ public abstract class BaseActivity<VM extends BaseViewModel> extends AppCompatAc
 
   protected abstract void setupViews(@Nullable Bundle savedInstanceState);
 
-  protected abstract void setupObservers();
+  protected void setupObservers(){
+    viewModel.messageString.observe(this, new Observer<String>() {
+      @Override public void onChanged(String s) {
+        showSnackBar(s);
+      }
+    });
+
+    viewModel.messageStringId.observe(this, new Observer<Integer>() {
+      @Override public void onChanged(Integer integer) {
+        showSnackBar(integer);
+      }
+    });
+  }
 
   protected abstract void injectDependencies(ActivityComponent activityComponent);
 
