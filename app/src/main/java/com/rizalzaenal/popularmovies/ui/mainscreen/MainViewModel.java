@@ -47,4 +47,23 @@ public class MainViewModel extends BaseViewModel {
       });
     compositeDisposable.add(disposable);
   }
+
+  public void fetchTopRatedMovies(){
+    Disposable disposable = mainRepository
+      .fetchTopRatedMovies()
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeWith(new DisposableSingleObserver<ResultInfo>() {
+        @Override public void onSuccess(ResultInfo resultInfo) {
+          if (resultInfo != null){
+            _movieLiveData.postValue(resultInfo.getResults());
+          }
+        }
+
+        @Override public void onError(Throwable e) {
+          messageString.postValue(e.getMessage());
+        }
+      });
+    compositeDisposable.add(disposable);
+  }
 }
