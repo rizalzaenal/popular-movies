@@ -42,7 +42,7 @@ public class ApplicationModule {
   @Singleton
   @Provides
   MovieDBService provideMovieDBService(){
-    return Networking.create(BuildConfig.BASE_URL, BuildConfig.API_KEY,
+    return Networking.create(BuildConfig.BASE_URL,
       application.getCacheDir(), 10 * 1024 * 1024L); // 10MB)
   }
 

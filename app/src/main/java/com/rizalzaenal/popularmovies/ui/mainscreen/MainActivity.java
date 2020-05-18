@@ -1,5 +1,6 @@
 package com.rizalzaenal.popularmovies.ui.mainscreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rizalzaenal.popularmovies.R;
 import com.rizalzaenal.popularmovies.base.BaseActivity;
 import com.rizalzaenal.popularmovies.di.component.ActivityComponent;
+import com.rizalzaenal.popularmovies.ui.moviedetail.MovieDetailActivity;
 
 public class MainActivity extends BaseActivity<MainViewModel> {
   Toolbar toolbar;
@@ -28,11 +30,15 @@ public class MainActivity extends BaseActivity<MainViewModel> {
   @Override protected void setupViews(@Nullable Bundle savedInstanceState) {
     toolbar = findViewById(R.id.toolbar);
     recyclerView = findViewById(R.id.rv_main);
-
     setSupportActionBar(toolbar);
+
     recyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
     adapter = new MovieAdapter(movie -> {
       showSnackBar(movie.getTitle());
+
+      Intent intent = new Intent(this, MovieDetailActivity.class);
+      intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie);
+      startActivity(intent);
     });
     recyclerView.setAdapter(adapter);
   }

@@ -13,9 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Networking {
 
-  static final long NETWORK_CALL_TIMEOUT = 60;
+  private static final long NETWORK_CALL_TIMEOUT = 60;
 
-  static public MovieDBService create(String baseUrl, String apiKey, File cacheDir, Long cacheSize){
+  static public MovieDBService create(String baseUrl, File cacheDir, Long cacheSize){
 
     return new Retrofit.Builder()
       .baseUrl(baseUrl)
