@@ -33,7 +33,9 @@ public class Networking {
       .writeTimeout(NETWORK_CALL_TIMEOUT, TimeUnit.SECONDS);
 
     if (BuildConfig.DEBUG){
-      client.addInterceptor(new HttpLoggingInterceptor());
+      HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+      logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+      client.addInterceptor(logging);
     }
      return client.build();
   }
