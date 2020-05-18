@@ -14,7 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-  private List<Movie> movieList = new ArrayList<Movie>();
+  private List<Movie> movieList;
+  private OnItemClicked listener;
+
+  MovieAdapter(OnItemClicked listener){
+    movieList = new ArrayList<Movie>();
+    this.listener = listener;
+  }
 
   @NonNull @Override
   public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,7 +36,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     return movieList.size();
   }
 
-  public void setMovieList(List<Movie> movieList) {
+  void setMovieList(List<Movie> movieList) {
     this.movieList = movieList;
     notifyDataSetChanged();
   }
@@ -39,18 +45,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     return movieList;
   }
 
-  public class MovieViewHolder extends RecyclerView.ViewHolder {
+  class MovieViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
 
-    public MovieViewHolder(@NonNull View itemView) {
+    MovieViewHolder(@NonNull View itemView) {
       super(itemView);
       imageView = itemView.findViewById(R.id.iv_poster);
+      imageView.setOnClickListener(v -> {
+        listener.doOnClick(movieList.get(getAdapterPosition()));
+      });
     }
 
-    public void bind(Movie movie){
+    void bind(Movie movie){
       Glide.with(itemView.getContext())
         .load(BuildConfig.IMAGE_BASE_URL + BuildConfig.IMAGE_SIZE_W185 + movie.getPosterPath())
         .into(imageView);
     }
+  }
+
+  public interface OnItemClicked{
+    void doOnClick(Movie movie);
   }
 }

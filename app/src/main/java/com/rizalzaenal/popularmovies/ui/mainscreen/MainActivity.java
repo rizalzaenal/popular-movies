@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.rizalzaenal.popularmovies.BuildConfig;
 import com.rizalzaenal.popularmovies.R;
 import com.rizalzaenal.popularmovies.base.BaseActivity;
 import com.rizalzaenal.popularmovies.di.component.ActivityComponent;
@@ -32,7 +31,9 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 
     setSupportActionBar(toolbar);
     recyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
-    adapter = new MovieAdapter();
+    adapter = new MovieAdapter(movie -> {
+      showSnackBar(movie.getTitle());
+    });
     recyclerView.setAdapter(adapter);
   }
 
