@@ -20,10 +20,14 @@ android {
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+      buildConfigField("String", "IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/\"")
+      buildConfigField("String", "IMAGE_SIZE_W185", "\"w185\"")
     }
 
     debug {
       buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+      buildConfigField("String", "IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/\"")
+      buildConfigField("String", "IMAGE_SIZE_W185", "\"w185\"")
     }
   }
 

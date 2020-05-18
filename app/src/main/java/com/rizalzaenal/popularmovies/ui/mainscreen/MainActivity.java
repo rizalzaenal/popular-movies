@@ -3,17 +3,20 @@ package com.rizalzaenal.popularmovies.ui.mainscreen;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.rizalzaenal.popularmovies.BuildConfig;
 import com.rizalzaenal.popularmovies.R;
 import com.rizalzaenal.popularmovies.base.BaseActivity;
 import com.rizalzaenal.popularmovies.di.component.ActivityComponent;
 
 public class MainActivity extends BaseActivity<MainViewModel> {
-  TextView text;
   Toolbar toolbar;
+  RecyclerView recyclerView;
+  MovieAdapter adapter;
 
   @Override protected int activityLayout() {
     return R.layout.activity_main;
@@ -24,15 +27,18 @@ public class MainActivity extends BaseActivity<MainViewModel> {
   }
 
   @Override protected void setupViews(@Nullable Bundle savedInstanceState) {
-    text = findViewById(R.id.text);
     toolbar = findViewById(R.id.toolbar);
+    recyclerView = findViewById(R.id.rv_main);
 
     setSupportActionBar(toolbar);
+    recyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+    adapter = new MovieAdapter();
+    recyclerView.setAdapter(adapter);
   }
 
   @Override protected void setupObservers() {
     viewModel.movieLiveData.observe(this, movies -> {
-      text.setText(movies.toString());
+      adapter.setMovieList(movies);
     });
 
   }
@@ -45,7 +51,7 @@ public class MainActivity extends BaseActivity<MainViewModel> {
   @Override public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()){
       case R.id.popular:
-        showSnackBar("Click on popular");
+        showSnackBar("Click on popular" + BuildConfig.API_KEY);
         break;
       case R.id.top_rated:
         showSnackBar("Click on top rated");

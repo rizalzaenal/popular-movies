@@ -1,7 +1,7 @@
 package com.rizalzaenal.popularmovies.di.module;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import com.rizalzaenal.popularmovies.base.BaseActivity;
 import com.rizalzaenal.popularmovies.data.repository.MainRepository;
 import com.rizalzaenal.popularmovies.ui.mainscreen.MainViewModel;

@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="200dp"
-  android:layout_marginStart="4dp"
+  android:layout_height="250dp"
+  android:layout_margin="4dp"
+  app:cardCornerRadius="6dp"
+  android:elevation="3dp"
   >
-  <ImageView
-    android:id="@+id/iv_poster"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:src="@drawable/ic_launcher_background"
-    />
 
-</com.google.android.material.card.MaterialCardView>
+    <ImageView
+      android:id="@+id/iv_poster"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      android:contentDescription="@string/poster_image"
+      tools:src="@drawable/ic_launcher_background"
+      />
+
+
+</androidx.cardview.widget.CardView>

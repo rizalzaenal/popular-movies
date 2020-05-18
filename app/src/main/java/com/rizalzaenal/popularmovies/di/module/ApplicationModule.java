@@ -2,6 +2,7 @@ package com.rizalzaenal.popularmovies.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import androidx.recyclerview.widget.GridLayoutManager;
 import com.rizalzaenal.popularmovies.BuildConfig;
 import com.rizalzaenal.popularmovies.data.Networking;
 import com.rizalzaenal.popularmovies.data.remote.MovieDBService;
