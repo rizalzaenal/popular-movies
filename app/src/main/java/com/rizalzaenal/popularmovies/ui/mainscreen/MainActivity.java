@@ -51,10 +51,12 @@ public class MainActivity extends BaseActivity<MainViewModel> {
   @Override public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()){
       case R.id.popular:
-        showSnackBar("Click on popular" + BuildConfig.API_KEY);
+        viewModel.fetchPopularMovies();
+        setTitle(R.string.app_name);
         break;
       case R.id.top_rated:
-        showSnackBar("Click on top rated");
+        viewModel.fetchTopRatedMovies();
+        setTitle(getString(R.string.top_rated_movies));
         break;
     }
     return super.onOptionsItemSelected(item);
