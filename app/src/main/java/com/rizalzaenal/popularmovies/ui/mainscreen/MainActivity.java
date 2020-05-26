@@ -65,6 +65,8 @@ public class MainActivity extends BaseActivity<MainViewModel> {
         viewModel.fetchTopRatedMovies();
         setTitle(getString(R.string.top_rated_movies));
         break;
+      case R.id.favorited:
+        showSnackBar("Click favorited");
     }
     return super.onOptionsItemSelected(item);
   }
