@@ -2,11 +2,18 @@ package com.rizalzaenal.popularmovies.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "movie_table")
 public class Movie implements Parcelable {
+
+  public Movie() {
+  }
 
   @SerializedName("popularity")
   @Expose
@@ -22,6 +29,7 @@ public class Movie implements Parcelable {
   private String posterPath;
   @SerializedName("id")
   @Expose
+  @PrimaryKey
   private Integer id;
   @SerializedName("adult")
   @Expose
@@ -37,6 +45,7 @@ public class Movie implements Parcelable {
   private String originalTitle;
   @SerializedName("genre_ids")
   @Expose
+  @Ignore
   private List<Integer> genreIds;
   @SerializedName("title")
   @Expose

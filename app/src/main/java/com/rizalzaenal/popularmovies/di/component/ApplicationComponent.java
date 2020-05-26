@@ -3,6 +3,7 @@ package com.rizalzaenal.popularmovies.di.component;
 import android.app.Application;
 import android.content.Context;
 import com.rizalzaenal.popularmovies.PopularMoviesApp;
+import com.rizalzaenal.popularmovies.data.local.AppDB;
 import com.rizalzaenal.popularmovies.data.remote.MovieDBService;
 import com.rizalzaenal.popularmovies.di.module.ApplicationModule;
 import dagger.Component;
@@ -21,5 +22,6 @@ public interface ApplicationComponent {
   CompositeDisposable getCompositeDisposable();
   Application getApplication();
   MovieDBService getService();
+  AppDB getAppDB();
 
 }
