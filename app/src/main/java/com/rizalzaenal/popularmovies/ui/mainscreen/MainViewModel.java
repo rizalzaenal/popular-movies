@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.rizalzaenal.popularmovies.base.BaseViewModel;
 import com.rizalzaenal.popularmovies.data.model.Movie;
-import com.rizalzaenal.popularmovies.data.model.ResultInfo;
+import com.rizalzaenal.popularmovies.data.model.MovieResults;
 import com.rizalzaenal.popularmovies.data.repository.MainRepository;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -39,8 +39,8 @@ public class MainViewModel extends BaseViewModel {
       .fetchPopularMovies()
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
-      .subscribeWith(new DisposableSingleObserver<ResultInfo>() {
-        @Override public void onSuccess(ResultInfo resultInfo) {
+      .subscribeWith(new DisposableSingleObserver<MovieResults>() {
+        @Override public void onSuccess(MovieResults resultInfo) {
           if (resultInfo != null){
             _movieLiveData.postValue(resultInfo.getResults());
           }
@@ -58,8 +58,8 @@ public class MainViewModel extends BaseViewModel {
       .fetchTopRatedMovies()
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
-      .subscribeWith(new DisposableSingleObserver<ResultInfo>() {
-        @Override public void onSuccess(ResultInfo resultInfo) {
+      .subscribeWith(new DisposableSingleObserver<MovieResults>() {
+        @Override public void onSuccess(MovieResults resultInfo) {
           if (resultInfo != null){
             _movieLiveData.postValue(resultInfo.getResults());
           }

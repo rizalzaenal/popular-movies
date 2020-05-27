@@ -34,8 +34,6 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 
     recyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
     adapter = new MovieAdapter(movie -> {
-      showSnackBar(movie.getTitle());
-
       Intent intent = new Intent(this, MovieDetailActivity.class);
       intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie);
       startActivity(intent);

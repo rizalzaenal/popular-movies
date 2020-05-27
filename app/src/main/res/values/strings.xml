@@ -7,4 +7,6 @@
     <string name="favorited">Favorited</string>
     <string name="favorited_movies">Favorited Movies</string>
   <string name="favorite_movie_not_found">You didn\'t have any favorite movie yet</string>
+    <string name="trailer_icon">Trailer Icon</string>
+  <string name="trailers">Trailers:</string>
 </resources>

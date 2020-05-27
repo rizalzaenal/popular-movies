@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.rizalzaenal.popularmovies.base.BaseViewModel;
 import com.rizalzaenal.popularmovies.data.model.Movie;
+import com.rizalzaenal.popularmovies.data.model.MovieTrailers;
 import com.rizalzaenal.popularmovies.data.repository.MovieDetailRepository;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -23,6 +24,8 @@ public class MovieDetailViewModel extends BaseViewModel {
     private MovieDetailRepository repository;
     private MutableLiveData<String> _favoriteState = new MutableLiveData<String>();
     public LiveData<String> favoriteState = _favoriteState;
+    private MutableLiveData<MovieTrailers> _trailers = new MutableLiveData<MovieTrailers>();
+    public LiveData<MovieTrailers> trailers = _trailers;
 
     public MovieDetailViewModel(CompositeDisposable compositeDisposable, MovieDetailRepository repository) {
         super(compositeDisposable);
@@ -46,7 +49,22 @@ public class MovieDetailViewModel extends BaseViewModel {
                     }
                 });
 
+            Disposable disposable1 = repository.getMovieTrailers(movie.getId())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(new DisposableSingleObserver<MovieTrailers>() {
+                    @Override
+                    public void onSuccess(MovieTrailers movieTrailers) {
+                        _trailers.postValue(movieTrailers);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        messageString.postValue(e.getMessage());
+                    }
+                });
+
             compositeDisposable.add(disposable);
+            compositeDisposable.add(disposable1);
         }
 
     }

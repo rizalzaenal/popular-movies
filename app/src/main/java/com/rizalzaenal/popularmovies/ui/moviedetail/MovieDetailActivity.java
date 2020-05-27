@@ -1,6 +1,8 @@
 package com.rizalzaenal.popularmovies.ui.moviedetail;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rizalzaenal.popularmovies.BuildConfig;
@@ -28,6 +31,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
   TextView releaseDate;
   TextView synopsis;
   FloatingActionButton fab;
+  RecyclerView trailerRV;
+  TrailerAdapter trailerAdapter;
 
   @Override protected int activityLayout() {
     return R.layout.activity_movie_detail;
@@ -45,6 +50,16 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
     releaseDate = findViewById(R.id.tv_release_date);
     synopsis = findViewById(R.id.tv_plot_synopsis);
     fab = findViewById(R.id.fab_favorite);
+    trailerRV = findViewById(R.id.rv_trailers);
+    trailerAdapter = new TrailerAdapter(trailer -> {
+      //showSnackBar(trailer.getName());
+      Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + trailer.getKey()));
+      startActivity(intent);
+    });
+
+    trailerRV.setLayoutManager(new LinearLayoutManager(this));
+    trailerRV.setAdapter(trailerAdapter);
+
     setSupportActionBar(toolbar);
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -57,14 +72,13 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
     }
 
     fab.setOnClickListener(v -> {
-      //showSnackBar("Favorited!");
       viewModel.setOrRemoveMovieAsFavorite();
     });
   }
 
   @SuppressLint("SetTextI18n") private void setMovieData(Movie movie) {
     Glide.with(this)
-      .load(BuildConfig.IMAGE_BASE_URL + "w500" + movie.getBackdropPath())
+      .load(BuildConfig.IMAGE_BASE_URL + "w500" + movie.getPosterPath())
       .into(poster);
 
     title.setText(movie.getTitle());
@@ -77,15 +91,16 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
   protected void setupObservers() {
     super.setupObservers();
 
-    viewModel.favoriteState.observe(this, new Observer<String>() {
-      @Override
-      public void onChanged(String s) {
-        if (s.equals(MovieDetailViewModel.FAVORITED)){
-          fab.setImageDrawable(getDrawable(R.drawable.ic_favorite_black));
-        }else {
-          fab.setImageDrawable(getDrawable(R.drawable.ic_favorite_border_black));
-        }
+    viewModel.favoriteState.observe(this, s -> {
+      if (s.equals(MovieDetailViewModel.FAVORITED)){
+        fab.setImageDrawable(getDrawable(R.drawable.ic_favorite_black));
+      }else {
+        fab.setImageDrawable(getDrawable(R.drawable.ic_favorite_border_black));
       }
+    });
+
+    viewModel.trailers.observe(this, movieTrailers -> {
+      trailerAdapter.setTrailers(movieTrailers.getResults());
     });
   }
 

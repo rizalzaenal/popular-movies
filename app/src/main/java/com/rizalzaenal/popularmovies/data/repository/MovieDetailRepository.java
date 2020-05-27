@@ -2,8 +2,11 @@ package com.rizalzaenal.popularmovies.data.repository;
 
 
 import androidx.lifecycle.LiveData;
+import com.rizalzaenal.popularmovies.BuildConfig;
 import com.rizalzaenal.popularmovies.data.local.AppDB;
 import com.rizalzaenal.popularmovies.data.model.Movie;
+import com.rizalzaenal.popularmovies.data.model.MovieReviews;
+import com.rizalzaenal.popularmovies.data.model.MovieTrailers;
 import com.rizalzaenal.popularmovies.data.remote.MovieDBService;
 import java.util.List;
 import javax.inject.Inject;
@@ -33,5 +36,13 @@ public class MovieDetailRepository {
 
     public Single<Movie> getMovie(Integer movieId){
         return appDB.movieDao().getMovie(movieId);
+    }
+
+    public Single<MovieTrailers> getMovieTrailers(int movieId){
+        return service.getMovieTrailers(movieId + "", BuildConfig.API_KEY);
+    }
+
+    public Single<MovieReviews> getMovieReviews(int movieId){
+        return service.getMovieReviews(movieId + "", BuildConfig.API_KEY);
     }
 }
