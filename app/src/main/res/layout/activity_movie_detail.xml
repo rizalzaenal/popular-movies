@@ -43,27 +43,27 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
       <TextView
-        android:id="@+id/tv_movie_title"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_normal"
-        android:padding="@dimen/spacing_normal"
-        app:layout_constraintEnd_toStartOf="@id/tv_vote_average"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_image"
-        tools:text="Superman VS Batman" />
+          android:id="@+id/tv_movie_title"
+          style="@style/TextAppearance.MaterialComponents.Headline5"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/spacing_normal"
+          android:padding="@dimen/spacing_normal"
+          app:layout_constraintEnd_toStartOf="@id/tv_vote_average"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/iv_favorite"
+          tools:text="Superman VS Batman" />
 
       <TextView
-        android:id="@+id/tv_vote_average"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_normal"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_image"
-        tools:text="4.7" />
+          android:id="@+id/tv_vote_average"
+          style="@style/TextAppearance.MaterialComponents.Headline5"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/spacing_normal"
+          app:layout_constraintBottom_toBottomOf="@+id/tv_movie_title"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/tv_movie_title"
+          tools:text="4.7" />
 
       <TextView
         android:id="@+id/tv_release_date"
@@ -87,6 +87,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
         tools:text="TextView" />
+
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/iv_favorite"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:src="@drawable/ic_favorite_border_black"
+          android:backgroundTint="@color/colorAccent"
+          app:layout_constraintBottom_toBottomOf="@+id/iv_image"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/iv_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

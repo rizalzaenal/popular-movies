@@ -25,6 +25,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
   TextView voteAverage;
   TextView releaseDate;
   TextView synopsis;
+  ImageView favorite;
 
   @Override protected int activityLayout() {
     return R.layout.activity_movie_detail;
@@ -41,6 +42,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
     voteAverage = findViewById(R.id.tv_vote_average);
     releaseDate = findViewById(R.id.tv_release_date);
     synopsis = findViewById(R.id.tv_plot_synopsis);
+    favorite = findViewById(R.id.iv_favorite);
     setSupportActionBar(toolbar);
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -48,8 +50,14 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
       Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
       if (movie != null) {
         setMovieData(movie);
+        viewModel.setMovie(movie);
       }
     }
+
+    favorite.setOnClickListener(v -> {
+      showSnackBar("Favorited!");
+      viewModel.setMovieAsFavorite();
+    });
   }
 
   @SuppressLint("SetTextI18n") private void setMovieData(Movie movie) {
@@ -67,10 +75,8 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
     switch (item.getItemId()) {
       case android.R.id.home:
         onBackPressed();
-        return true;
-
-      default:
-        return super.onOptionsItemSelected(item);
+        break;
     }
+    return super.onOptionsItemSelected(item);
   }
 }
