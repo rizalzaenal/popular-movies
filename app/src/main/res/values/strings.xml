@@ -5,4 +5,6 @@
   <string name="poster_image">Poster image</string>
   <string name="top_rated_movies">Top Rated Movies</string>
     <string name="favorited">Favorited</string>
+    <string name="favorited_movies">Favorited Movies</string>
+  <string name="favorite_movie_not_found">You didn\'t have any favorite movie yet</string>
 </resources>

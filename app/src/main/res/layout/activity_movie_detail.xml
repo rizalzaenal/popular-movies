@@ -51,7 +51,7 @@
           android:padding="@dimen/spacing_normal"
           app:layout_constraintEnd_toStartOf="@id/tv_vote_average"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/iv_favorite"
+          app:layout_constraintTop_toBottomOf="@id/fab_favorite"
           tools:text="Superman VS Batman" />
 
       <TextView
@@ -89,12 +89,13 @@
         tools:text="TextView" />
 
       <com.google.android.material.floatingactionbutton.FloatingActionButton
-          android:id="@+id/iv_favorite"
+          android:id="@+id/fab_favorite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="16dp"
-          android:src="@drawable/ic_favorite_border_black"
-          android:backgroundTint="@color/colorAccent"
+          app:tint="@color/colorPrimary"
+          app:srcCompat="@drawable/ic_favorite_border_black"
+          android:backgroundTint="@android:color/white"
           app:layout_constraintBottom_toBottomOf="@+id/iv_image"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/iv_image" />

@@ -8,7 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rizalzaenal.popularmovies.BuildConfig;
 import com.rizalzaenal.popularmovies.R;
 import com.rizalzaenal.popularmovies.base.BaseActivity;
@@ -25,7 +27,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
   TextView voteAverage;
   TextView releaseDate;
   TextView synopsis;
-  ImageView favorite;
+  FloatingActionButton fab;
 
   @Override protected int activityLayout() {
     return R.layout.activity_movie_detail;
@@ -42,7 +44,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
     voteAverage = findViewById(R.id.tv_vote_average);
     releaseDate = findViewById(R.id.tv_release_date);
     synopsis = findViewById(R.id.tv_plot_synopsis);
-    favorite = findViewById(R.id.iv_favorite);
+    fab = findViewById(R.id.fab_favorite);
     setSupportActionBar(toolbar);
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -54,9 +56,9 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
       }
     }
 
-    favorite.setOnClickListener(v -> {
-      showSnackBar("Favorited!");
-      viewModel.setMovieAsFavorite();
+    fab.setOnClickListener(v -> {
+      //showSnackBar("Favorited!");
+      viewModel.setOrRemoveMovieAsFavorite();
     });
   }
 
@@ -69,6 +71,22 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
     voteAverage.setText(movie.getVoteAverage().toString());
     releaseDate.setText(movie.getReleaseDate());
     synopsis.setText(movie.getOverview());
+  }
+
+  @Override
+  protected void setupObservers() {
+    super.setupObservers();
+
+    viewModel.favoriteState.observe(this, new Observer<String>() {
+      @Override
+      public void onChanged(String s) {
+        if (s.equals(MovieDetailViewModel.FAVORITED)){
+          fab.setImageDrawable(getDrawable(R.drawable.ic_favorite_black));
+        }else {
+          fab.setImageDrawable(getDrawable(R.drawable.ic_favorite_border_black));
+        }
+      }
+    });
   }
 
   @Override public boolean onOptionsItemSelected(@NonNull MenuItem item) {

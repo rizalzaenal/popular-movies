@@ -11,22 +11,27 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainViewModel extends BaseViewModel {
   private MainRepository mainRepository;
+  private List<Movie> movieFromDB;
+  private Boolean isFromFavoriteMenu = false;
 
   private MutableLiveData<List<Movie>> _movieLiveData = new MutableLiveData<>();
   public LiveData<List<Movie>> movieLiveData = _movieLiveData;
+  public LiveData<List<Movie>> localMovieLiveData;
 
   public MainViewModel(CompositeDisposable compositeDisposable, MainRepository mainRepository) {
     super(compositeDisposable);
     this.mainRepository = mainRepository;
+    localMovieLiveData = mainRepository.getMovies();
+    movieFromDB = new ArrayList<>();
   }
 
   @Override protected void onCreate() {
     fetchPopularMovies();
-
   }
 
   public void fetchPopularMovies(){
@@ -66,4 +71,20 @@ public class MainViewModel extends BaseViewModel {
       });
     compositeDisposable.add(disposable);
   }
+
+    public List<Movie> getMovieFromDB() {
+        return movieFromDB;
+    }
+
+    public void setMovieFromDB(List<Movie> movieFromDB) {
+        this.movieFromDB = movieFromDB;
+    }
+
+    public Boolean getFromFavoriteMenu() {
+        return isFromFavoriteMenu;
+    }
+
+    public void setFromFavoriteMenu(Boolean fromFavoriteMenu) {
+        isFromFavoriteMenu = fromFavoriteMenu;
+    }
 }

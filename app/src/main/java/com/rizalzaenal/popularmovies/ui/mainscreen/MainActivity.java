@@ -48,6 +48,15 @@ public class MainActivity extends BaseActivity<MainViewModel> {
       adapter.setMovieList(movies);
     });
 
+    viewModel.localMovieLiveData.observe(this, movies -> {
+      viewModel.setMovieFromDB(movies);
+      if (viewModel.getFromFavoriteMenu()){
+        if (movies.size() == 0){
+          showSnackBar(R.string.favorite_movie_not_found);
+        }
+        adapter.setMovieList(movies);
+      }
+    });
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,13 +69,20 @@ public class MainActivity extends BaseActivity<MainViewModel> {
       case R.id.popular:
         viewModel.fetchPopularMovies();
         setTitle(R.string.app_name);
+        viewModel.setFromFavoriteMenu(false);
         break;
       case R.id.top_rated:
         viewModel.fetchTopRatedMovies();
         setTitle(getString(R.string.top_rated_movies));
+        viewModel.setFromFavoriteMenu(false);
         break;
       case R.id.favorited:
-        showSnackBar("Click favorited");
+        adapter.setMovieList(viewModel.getMovieFromDB());
+        if (viewModel.getMovieFromDB().size() == 0){
+          showSnackBar(R.string.favorite_movie_not_found);
+        }
+        setTitle(getString(R.string.favorited_movies));
+        viewModel.setFromFavoriteMenu(true);
     }
     return super.onOptionsItemSelected(item);
   }
