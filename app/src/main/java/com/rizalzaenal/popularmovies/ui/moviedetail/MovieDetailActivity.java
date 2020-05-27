@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -32,7 +33,11 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
   TextView synopsis;
   FloatingActionButton fab;
   RecyclerView trailerRV;
+  RecyclerView reviewRV;
   TrailerAdapter trailerAdapter;
+  ReviewAdapter reviewAdapter;
+  TextView trailerLabel;
+  TextView reviewLabel;
 
   @Override protected int activityLayout() {
     return R.layout.activity_movie_detail;
@@ -51,14 +56,23 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
     synopsis = findViewById(R.id.tv_plot_synopsis);
     fab = findViewById(R.id.fab_favorite);
     trailerRV = findViewById(R.id.rv_trailers);
+    reviewRV = findViewById(R.id.rv_reviews);
+    trailerLabel = findViewById(R.id.tv_trailer_label);
+    reviewLabel = findViewById(R.id.tv_review_label);
+
     trailerAdapter = new TrailerAdapter(trailer -> {
-      //showSnackBar(trailer.getName());
       Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + trailer.getKey()));
+      startActivity(intent);
+    });
+    reviewAdapter = new ReviewAdapter(review -> {
+      Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(review.getUrl()));
       startActivity(intent);
     });
 
     trailerRV.setLayoutManager(new LinearLayoutManager(this));
+    reviewRV.setLayoutManager(new LinearLayoutManager(this));
     trailerRV.setAdapter(trailerAdapter);
+    reviewRV.setAdapter(reviewAdapter);
 
     setSupportActionBar(toolbar);
     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -101,6 +115,12 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel> {
 
     viewModel.trailers.observe(this, movieTrailers -> {
       trailerAdapter.setTrailers(movieTrailers.getResults());
+      if (movieTrailers.getResults().size() == 0) trailerLabel.setVisibility(View.GONE);
+    });
+
+    viewModel.reviews.observe(this, movieReviews -> {
+      reviewAdapter.setReviews(movieReviews.getResults());
+      if (movieReviews.getResults().size() == 0) reviewLabel.setVisibility(View.GONE);
     });
   }
 

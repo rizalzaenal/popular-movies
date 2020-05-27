@@ -101,7 +101,7 @@
           app:layout_constraintTop_toBottomOf="@+id/iv_image" />
 
       <TextView
-          android:id="@+id/textView"
+          android:id="@+id/tv_trailer_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/trailers"
@@ -118,14 +118,34 @@
           android:layout_height="match_parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/textView"
+          app:layout_constraintTop_toBottomOf="@+id/tv_trailer_label"
           tools:itemCount="5"
           tools:listitem="@layout/item_movie_trailer" />
+
+      <TextView
+          android:id="@+id/tv_review_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/reviews"
+          android:paddingStart="16dp"
+          android:paddingEnd="16dp"
+          android:layout_marginTop="16dp"
+          style="@style/TextAppearance.MaterialComponents.Headline5"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/rv_trailers" />
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_reviews"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/tv_review_label"
+          tools:itemCount="5"
+          tools:listitem="@layout/item_movie_review" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.core.widget.NestedScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
